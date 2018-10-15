@@ -4,15 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
+@Table
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,11 +18,13 @@ public class Linker {
     @GeneratedValue
     private UUID id;
 
-    @Max(100)
-    @Min(10)
+    @Column(length = 100)
     private String link;
 
     @Lob
     private byte[] qr;
+
+    @OneToOne
+    private Shorter shorter;
 
 }
