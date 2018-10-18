@@ -120,8 +120,6 @@ public class MD5Service {
             .reduce((s1, s2) -> s1 + s2)
             .orElse("");
 
-        System.out.println(hash);
-
         return hash;
     }
 
