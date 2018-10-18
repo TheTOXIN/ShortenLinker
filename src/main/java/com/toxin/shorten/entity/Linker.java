@@ -18,13 +18,11 @@ public class Linker {
     @GeneratedValue
     private UUID id;
 
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     private String link;
 
     @Lob
+    @Column(nullable = false)
     private byte[] qr;
-
-    @OneToOne
-    private Shorter shorter;
 
 }

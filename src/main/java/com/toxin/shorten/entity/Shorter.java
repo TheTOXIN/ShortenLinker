@@ -18,11 +18,11 @@ public class Shorter {
     @GeneratedValue
     private UUID id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String hash;
 
-    @OneToOne
-    @JoinColumn
+    @JoinColumn(nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
     private Linker linker;
 
 }
