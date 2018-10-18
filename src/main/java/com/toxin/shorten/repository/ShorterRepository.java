@@ -9,4 +9,6 @@ import java.util.UUID;
 @Repository
 public interface ShorterRepository extends JpaRepository<Shorter, UUID> {
 
+    Shorter findByHash(String hash);
+
 }
