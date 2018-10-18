@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("link")
@@ -23,12 +22,10 @@ public class LinkerController {
     }
 
     @GetMapping("/{hash}")
-    private void linker(
-        HttpServletResponse response,
+    private ModelAndView linker(
         @PathVariable("hash") String hash
     ) {
-        response.setHeader("Location", linkerService.linker(hash));
-        response.setStatus(200);
+        return new ModelAndView("redirect:" + linkerService.linker(hash));
     }
 
 }
