@@ -25,6 +25,7 @@ public class MD5Service {
     private static final int COUNT_ROUND = 4;
     private static final int T_SIZE = BLOCK_SIZE / BIT_IN_BYTE;
     private static final int POW = T_SIZE / 2;
+    private final static int HASH_BATCH = 32 / 8;
 
     public String hash(String data) {
 
@@ -120,7 +121,26 @@ public class MD5Service {
             .reduce((s1, s2) -> s1 + s2)
             .orElse("");
 
-        return hash;
+        return shortHash(hash);
+    }
+
+    private String shortHash(String hash) {
+        String result = "";
+
+        for (int i = 0; i < hash.length(); i += HASH_BATCH) {
+            int batch = 0;
+
+            for (int j = 0; j < HASH_BATCH; j++) {
+                String hex = String.valueOf(hash.charAt(i));
+                batch += Integer.parseInt(hex, 16);
+            }
+
+            batch /= HASH_BATCH;
+
+            result += Integer.toHexString(batch);
+        }
+
+        return result;
     }
 
     private int compute(int[] ABCD, FUN f, int X, int T, int S) {

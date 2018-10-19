@@ -8,11 +8,10 @@ import com.toxin.shorten.repository.ShorterRepository;
 import com.toxin.shorten.util.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ShorterService {
-
-    private final static int HASH_BATCH = 32 / 8;
 
     private final ShorterRepository shorterRepository;
     private final QRService qrService;
@@ -34,15 +33,11 @@ public class ShorterService {
 
     public ShorterResponse shorter(ShorterRequest request) {
         String hash = md5Service.hash(request.getLink());
-        String shortHash = shortHash(hash);
+        String hashLink = HttpUtil.buildHashLink(request.getBaseUrl(), hash);
 
-        String hashLink = HttpUtil.buildHashLink(request.getBaseUrl(), shortHash);
-
-        Shorter shorter = shorterRepository.findByHash(shortHash);
-
-        if (shorter == null) shorter = create(shortHash, hashLink, request);
-
-        String pathQR = qrService.load(shorter.getLinker(), shortHash);
+        Shorter shorter = shorterRepository.findByHash(hash);
+        if (shorter == null) shorter = create(hash, hashLink, request);
+        String pathQR = qrService.load(shorter.getLinker(), hash);
 
         return new ShorterResponse(
             pathQR,
@@ -61,25 +56,6 @@ public class ShorterService {
         shorterRepository.save(shorter);
 
         return shorter;
-    }
-
-    private String shortHash(String hash) {
-        String result = "";
-
-        for (int i = 0; i < hash.length(); i += HASH_BATCH) {
-            int batch = 0;
-
-            for (int j = 0; j < HASH_BATCH; j++) {
-                String hex = String.valueOf(hash.charAt(i));
-                batch += Integer.parseInt(hex, 16);
-            }
-
-            batch /= HASH_BATCH;
-
-            result += Integer.toHexString(batch);
-        }
-
-        return result;
     }
 
 }
