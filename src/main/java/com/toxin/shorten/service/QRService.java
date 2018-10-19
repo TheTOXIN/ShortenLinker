@@ -21,7 +21,7 @@ import java.util.Hashtable;
 @Service
 public class QRService {
 
-    private final static int QR_SIZE = 32;
+    private final static int QR_SIZE = 128;
     private final static String TYPE = "png";
 
     private final ShorterRepository shorterRepository;
