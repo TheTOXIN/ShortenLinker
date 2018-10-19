@@ -1,0 +1,19 @@
+body {
+    background-image: url("/image/back.png");
+}
+
+#present {
+    text-align: center;
+}
+
+#label {
+    text-align: center;
+}
+
+#inputer {
+    text-align: center;
+}
+
+#downer {
+    text-align: center;
+}
