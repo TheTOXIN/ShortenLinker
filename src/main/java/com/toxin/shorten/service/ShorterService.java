@@ -31,6 +31,7 @@ public class ShorterService {
         this.qrService = qrService;
     }
 
+    @Transactional
     public ShorterResponse shorter(ShorterRequest request) {
         String hash = md5Service.hash(request.getLink());
         String hashLink = HttpUtil.buildHashLink(request.getBaseUrl(), hash);

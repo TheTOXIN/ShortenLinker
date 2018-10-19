@@ -22,6 +22,7 @@ public class LinkerService {
         this.qrService = qrService;
     }
 
+    @Transactional
     public String linker(String hash) {
         Shorter shorter = shorterRepository.findByHash(hash);
 
