@@ -1,5 +1,46 @@
+@font-face {
+    font-family: "Micronica";
+    src: url("fonts/micronica.otf");
+}
+
+@font-face{
+    font-family: "Futurica";
+    src: url("fonts/futurica.ttf");
+}
+
 body {
-    background-image: url("/image/back.png");
+    background: url("image/back.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.logo {
+    margin: 20px;
+    width: 80px;
+    height: 80px;
+    -webkit-filter: drop-shadow(5px 5px 5px #222 );
+    filter: drop-shadow(5px 5px 5px #222);
+}
+
+.octocat{
+    width: 100px;
+    height: 85px;
+}
+
+.nick {
+    float: right;
+    margin-right: 20px;
+    top: 60px;
+    position: relative;
+}
+
+.copyright {
+    float: left;
+    margin-left: 20px;
+    top: 60px;
+    position: relative;
 }
 
 #present {
@@ -7,13 +48,30 @@ body {
 }
 
 #label {
+    font-size: 128px;
     text-align: center;
+    font-family: Futurica, serif;
+    text-shadow: 0px 0px 100px black;
+    color: white;
 }
 
 #inputer {
+    margin-left: 20px;
+    margin-right: 20px;
     text-align: center;
+}
+
+#short {
+    width: 190px;
+    height: 55px;
+    font-size: 32px;
 }
 
 #downer {
     text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    font-size: 20px;
+    font-family: Micronica, serif;
 }
