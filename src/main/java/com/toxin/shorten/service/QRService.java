@@ -6,8 +6,11 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.toxin.shorten.entity.Linker;
+import com.toxin.shorten.entity.Shorter;
+import com.toxin.shorten.repository.ShorterRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,26 +22,24 @@ import java.util.Hashtable;
 public class QRService {
 
     private final static int QR_SIZE = 32;
-
-    private final static String PATH = "";
     private final static String TYPE = "png";
 
-    public String load(Linker linker, String hash) {
-        byte[] qr = linker.getQr();
+    private final ShorterRepository shorterRepository;
 
-        try {
-            ByteArrayInputStream bis = new ByteArrayInputStream(qr);
-            BufferedImage bufferedImage = ImageIO.read(bis);
+    @Autowired
+    public QRService(
+        ShorterRepository shorterRepository
+    ) {
+        this.shorterRepository = shorterRepository;
+    }
 
-            File file = new File(PATH + hash + "." + TYPE);
-            ImageIO.write(bufferedImage, TYPE, file);
+    @Transactional
+    public byte[] load(String hash) {
+        Shorter shorter = shorterRepository.findByHash(hash);
 
-            return file.getPath();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        if (shorter == null) return new byte[0];
 
-        return null;
+        return shorter.getLinker().getQr();
     }
 
     public byte[] generate(String data) {

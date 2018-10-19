@@ -38,10 +38,12 @@ public class ShorterService {
 
         Shorter shorter = shorterRepository.findByHash(hash);
         if (shorter == null) shorter = create(hash, hashLink, request);
-        String pathQR = qrService.load(shorter.getLinker(), hash);
+
+        Linker linker = shorter.getLinker();
+        byte[] matrixQR = linker.getQr();
 
         return new ShorterResponse(
-            pathQR,
+            matrixQR,
             hashLink
         );
     }
