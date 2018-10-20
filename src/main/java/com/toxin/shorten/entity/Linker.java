@@ -18,7 +18,7 @@ public class Linker {
     @GeneratedValue
     private UUID id;
 
-    @Column(length = 500, nullable = false)
+    @Column(length = 1000, nullable = false)
     private String link;
 
     @Lob
