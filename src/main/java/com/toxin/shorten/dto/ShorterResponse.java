@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ShorterResponse {
 
-    private byte[] matrixQR;
+    private String hash;
     private String hashLink;
 
 }

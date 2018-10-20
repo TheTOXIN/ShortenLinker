@@ -37,18 +37,15 @@ public class ShorterService {
         String hashLink = HttpUtil.buildHashLink(request.getBaseUrl(), hash);
 
         Shorter shorter = shorterRepository.findByHash(hash);
-        if (shorter == null) shorter = create(hash, hashLink, request);
-
-        Linker linker = shorter.getLinker();
-        byte[] matrixQR = linker.getQr();
+        if (shorter == null) create(hash, hashLink, request);
 
         return new ShorterResponse(
-            matrixQR,
+            hash,
             hashLink
         );
     }
 
-    private Shorter create(String hash, String hashLink, ShorterRequest request) {
+    private void create(String hash, String hashLink, ShorterRequest request) {
         Linker linker = linkerService.make(request.getLink(), hashLink);
 
         Shorter shorter = new Shorter();
@@ -57,8 +54,6 @@ public class ShorterService {
         shorter.setLinker(linker);
 
         shorterRepository.save(shorter);
-
-        return shorter;
     }
 
 }

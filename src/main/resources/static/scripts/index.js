@@ -22,8 +22,8 @@ function short() {
         cache: false,
         timeout: 600000,
         success: function (data) {
-            console.log("SUCESS");
-            console.log(data);
+            $("#hashLink").val(data.hashLink);
+            $("#qr").attr("src", "/QR/" + data.hash);
         },
         error: function (e) {
             console.log("ERROR");
