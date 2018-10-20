@@ -1,6 +1,10 @@
 $(document).ready(function () {
 
     $("#linkForm").submit(function (event) {
+        $("#hashText").text("WAIT...");
+        $("#hashText").css('color', 'black');
+        $("#qr").attr("src", "");
+
         event.preventDefault();
         if (valid()) short();
     });
@@ -11,7 +15,10 @@ $(document).ready(function () {
     });
 
     $("#share").click(function () {
-        console.log("SHARE");
+        var url = document.URL.slice(0, -1);
+        var hash = $("#qr").attr("src").slice(-8);
+        var share = url + "/QR/" + hash + "\n " + url + "/link/" + hash;
+        $("#linkShare").attr('href', 'tg://msg?text=' + share)
     });
 
 });
