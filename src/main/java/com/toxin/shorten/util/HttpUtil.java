@@ -21,6 +21,13 @@ public class HttpUtil {
         return null;
     }
 
+    public static boolean valid(String link) {
+        return !link.isEmpty() &&
+            link.length() > 10 &&
+            link.length() < 1000 &&
+            link.contains("https");
+    }
+
     public static String buildHashLink(String url, String hash) {
         return url + API_HAHSK_LINK + "/" + hash;
     }

@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class ShorterService {
 
     private final ShorterRepository shorterRepository;
-    private final QRService qrService;
     private final MD5Service md5Service;
     private final LinkerService linkerService;
 
@@ -22,13 +21,11 @@ public class ShorterService {
     public ShorterService(
         ShorterRepository shorterRepository,
         MD5Service md5Service,
-        LinkerService linkerService,
-        QRService qrService
+        LinkerService linkerService
     ) {
         this.shorterRepository = shorterRepository;
         this.md5Service = md5Service;
         this.linkerService = linkerService;
-        this.qrService = qrService;
     }
 
     @Transactional

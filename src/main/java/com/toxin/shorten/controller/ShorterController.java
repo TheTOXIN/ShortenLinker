@@ -2,6 +2,7 @@ package com.toxin.shorten.controller;
 
 import com.toxin.shorten.dto.ShorterRequest;
 import com.toxin.shorten.dto.ShorterResponse;
+import com.toxin.shorten.exception.ValidException;
 import com.toxin.shorten.service.ShorterService;
 import com.toxin.shorten.util.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class ShorterController {
         HttpServletRequest httpServletRequest,
         @RequestBody ShorterRequest request
     ) {
+        if (!HttpUtil.valid(request.getLink())) throw new ValidException();
         request.setBaseUrl(HttpUtil.getURLBase(httpServletRequest));
         return shorterService.shorter(request);
     }
