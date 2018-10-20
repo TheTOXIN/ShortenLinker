@@ -5,6 +5,15 @@ $(document).ready(function () {
         if (valid()) short();
     });
 
+    $("#copy").click(function () {
+        $("#hashLink").select();
+        document.execCommand('copy');
+    });
+
+    $("#share").click(function () {
+        console.log("SHARE");
+    });
+
 });
 
 function valid() {
